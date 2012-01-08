@@ -1,0 +1,9 @@
+name: DecoyBlocks
+main: Fishrock123.DecoyBlocks.DecoyBlocks
+version: 0.3 ALPHA (1B6)
+description: >
+    DecoyBlocks:
+commands:
+    db:
+        description:
+        usage: 
