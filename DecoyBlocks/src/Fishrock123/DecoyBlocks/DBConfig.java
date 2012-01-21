@@ -14,6 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class DBConfig {
 	public static DecoyBlocks m;
+	
 	public DBConfig(DecoyBlocks instance) {
 		m = instance;
 	}
@@ -21,10 +22,10 @@ public class DBConfig {
 	@SuppressWarnings("unchecked")
 	public void generate() {
 		final FileConfiguration c = m.getConfig();
+		
 		if (!new File(m.getDataFolder(), "config.yml").exists()) {
 			m.l.info("DB: Generating New Config File... ");
-			c.addDefault("Punishment 1", "3,Jail");
-			c.addDefault("Punishment 2", "5,Ban");
+			c.addDefault("Punishments", Arrays.asList("3,Jail", "5,Ban"));
 			c.addDefault("JailLocation", Arrays.asList("world", 0, 0, 0));
 			c.addDefault("AutoRestore", false);
 			c.addDefault("AutoSave", true);
@@ -58,24 +59,25 @@ public class DBConfig {
 			m.saveConfig();
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public void load() {
 		final FileConfiguration c = m.getConfig();
   		m.l.info("DB: Loading Config File... ");
-  		String[] Temp1 = c.getString("Punishment 1", "3,Nothing").split(",");
-  		m.Trigger1 = Integer.parseInt(Temp1[0]);
-  		m.Punish1 = Temp1[1];
-  		String[] Temp2 = c.getString("Punishment 2", "5,Nothing").split(",");
-  		m.Trigger2 = Integer.parseInt(Temp2[0]);
-  		m.Punish2 = Temp2[1];
-  		String[] Temp3 = c.getString("Punishment 3", "10,Nothing").split(",");
-  		m.Trigger3 = Integer.parseInt(Temp3[0]);
-  		m.Punish3 = Temp3[1];
+  		
+  		List<String> l = c.getStringList("Punishments");
+  		
+  		for (String s: l) {
+  			m.punishments.add(new DBPunishment(Byte.parseByte(s.split(",")[0]), s.split(",")[1]));
+  		}
+  		
   		List<?> coords = c.getList("JailLocation");
+  		
   		try {
   			m.jailLoc = new Location(Bukkit.getWorld((String) coords.get(0)), Double.parseDouble(coords.get(1).toString()), Double.parseDouble(coords.get(2).toString()), Double.parseDouble(coords.get(3).toString()));
   		} catch (Exception e) {
   			e.printStackTrace();
   		}
+  		
   		m.AutoRestore = c.getBoolean("AutoRestore", false);
   		m.AutoSave = c.getBoolean("AutoSave", true);
 	}

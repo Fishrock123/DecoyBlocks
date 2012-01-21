@@ -2,7 +2,6 @@ package Fishrock123.DecoyBlocks;
 
 import java.util.concurrent.TimeUnit;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -12,6 +11,7 @@ import org.bukkit.entity.Player;
 public class DBCommands {
 	public static DecoyBlocks m;
 	private static DBDatabase database;
+	
 	public DBCommands(DecoyBlocks instance) {
 		m = instance;
 		database = m.database;
@@ -19,11 +19,12 @@ public class DBCommands {
 	
 	public boolean commandProcess(CommandSender s, Command cmd, String cLabel, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("db")) {
+			
 			if (args.length >= 1) {
 				if (args[0].equalsIgnoreCase("decoys")
 						&& s.hasPermission("decoyblocks.decoy")) {
 					for (DBBlock b : database.decoys) {
-						s.sendMessage(b.getLocation().toString());
+						s.sendMessage(b.toString());
 						continue;
 					}
 					return true;
@@ -35,7 +36,7 @@ public class DBCommands {
 						int i = 0;
 						for (DBLogEntry entry : database.Log) {
 							i++;
-							s.sendMessage("(" + i + ") " + entry.getOfflinePlayer().getName() + " broke: " + entry.getBlock() + " at " + entry.getTimestamp());
+							s.sendMessage("(" + i + ") " + entry.toString());
 							continue;
 						}
 						if (s instanceof Player) {

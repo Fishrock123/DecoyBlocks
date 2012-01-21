@@ -1,6 +1,7 @@
 package Fishrock123.DecoyBlocks;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 
 public class DBBlock {
@@ -32,5 +33,9 @@ public class DBBlock {
 	
 	public byte getData() {
 		return data;
+	}
+	
+	public String toString() {
+		return Material.getMaterial(id) + ":(" + data + ") -: (" + loc.getWorld().getName() + ")(X:" + (long)loc.getX() + ")(Y:" + (long)loc.getY() + ")(Z:" + (long)loc.getZ() + ")";
 	}
 }

@@ -26,6 +26,7 @@ public class DBDatabase {
 	public List<Location> decoyLocations = new ArrayList<Location>();
 	public List<DBLogEntry> Log = new ArrayList<DBLogEntry>();
 	public Map<String, Byte> logCounter = new HashMap<String, Byte>();
+	
 	public DBDatabase(DecoyBlocks instance) {
 		m = instance;
 	}
@@ -42,6 +43,7 @@ public class DBDatabase {
 	
 	public void SaveDecoys() {
 		File savefile = new File("plugins" + File.separator + "DecoyBlocks" + File.separator + "DBDecoys.dat");
+		
 		if (!savefile.exists()) {
 			try {
 				new File("plugins" + File.separator + "DecoyBlocks").mkdir();
@@ -61,9 +63,8 @@ public class DBDatabase {
             ostream.writeShort(decoycount);
             
             for (DBBlock b : decoys) {
-            	decoycount ++;
             	
-            	ostream.writeObject(b.getWorldName());
+            	ostream.writeUTF(b.getWorldName());
             	ostream.writeDouble(b.getLocation().getX());
             	ostream.writeDouble(b.getLocation().getY());
             	ostream.writeDouble(b.getLocation().getZ());
@@ -90,6 +91,7 @@ public class DBDatabase {
     public void LoadDecoys() {
         File savefile = new File("plugins" + File.separator + "DecoyBlocks" + File.separator + "DBDecoys.dat");
         boolean exists = savefile.exists();
+        
         if (exists) {
         	FileInputStream ifstream = null;
             ObjectInputStream iostream = null;
@@ -98,9 +100,18 @@ public class DBDatabase {
                 iostream = new ObjectInputStream(ifstream);
                 
                 short decoycount = iostream.readShort();
+                
                 if (decoycount > 0) {
                 	for (int i = 0; i < decoycount; i++)  {
-                		World w = Bukkit.getServer().getWorld(iostream.readObject().toString());
+                		
+                		String name = null;
+                		try {
+                			name = iostream.readUTF();
+                		} catch (Exception e) {
+                			name = iostream.readObject().toString();
+                		}
+                		World w = Bukkit.getServer().getWorld(name);
+                		
                 		Double x = iostream.readDouble();
                 		Double y = iostream.readDouble();
                 		Double z = iostream.readDouble();
@@ -141,6 +152,7 @@ public class DBDatabase {
     
     public void SaveLog() {
 		File savefile = new File("plugins" + File.separator + "DecoyBlocks" + File.separator + "DBLog.dat");
+		
 		if (!savefile.exists()) {
 			try {
 				new File("plugins" + File.separator + "DecoyBlocks").mkdir();
@@ -160,10 +172,9 @@ public class DBDatabase {
             ostream.writeShort(entrycount);
             
             for (DBLogEntry entry : Log) {
-            	entrycount ++;
             	
-            	ostream.writeObject(entry.getOfflinePlayer().getName());
-            	ostream.writeObject(entry.getBlock().getLocation().getWorld().getName());
+            	ostream.writeUTF(entry.getOfflinePlayer().getName());
+            	ostream.writeUTF(entry.getBlock().getLocation().getWorld().getName());
             	ostream.writeDouble(entry.getBlock().getLocation().getX());
             	ostream.writeDouble(entry.getBlock().getLocation().getY());
             	ostream.writeDouble(entry.getBlock().getLocation().getZ());
@@ -183,6 +194,7 @@ public class DBDatabase {
     public void LoadLog() {
         File savefile = new File("plugins" + File.separator + "DecoyBlocks" + File.separator + "DBLog.dat");
         boolean exists = savefile.exists();
+        
         if (exists) {
         	FileInputStream ifstream = null;
             ObjectInputStream iostream = null;
@@ -192,9 +204,23 @@ public class DBDatabase {
                 
                 short entrycount = iostream.readShort();
                 for (int i = 0; i < entrycount; i++)  {
+            		
+            		String pname = null;
+            		try {
+            			pname = iostream.readUTF();
+            		} catch (Exception e) {
+            			pname = iostream.readObject().toString();
+            		}
+                	OfflinePlayer p = Bukkit.getServer().getOfflinePlayer(pname);
                 	
-                	OfflinePlayer p = Bukkit.getServer().getOfflinePlayer((String)iostream.readObject());
-                	World w = Bukkit.getServer().getWorld(iostream.readObject().toString());
+                	String wname = null;
+            		try {
+            			wname = iostream.readUTF();
+            		} catch (Exception e) {
+            			wname = iostream.readObject().toString();
+            		}
+            		World w = Bukkit.getServer().getWorld(wname);
+                	
                     Double x = iostream.readDouble();
                     Double y = iostream.readDouble();
                     Double z = iostream.readDouble();
@@ -203,6 +229,7 @@ public class DBDatabase {
                     DBLogEntry entry = new DBLogEntry(p, w.getBlockAt(new Location(w, x, y, z)), (Date)time);
                     Log.add(entry);
                     byte breakcount = 0;
+                    
                     if (logCounter.containsKey(entry.getOfflinePlayer().getName())) {
                     	breakcount = logCounter.get(entry.getOfflinePlayer().getName());
                     	logCounter.remove(entry.getOfflinePlayer().getName());

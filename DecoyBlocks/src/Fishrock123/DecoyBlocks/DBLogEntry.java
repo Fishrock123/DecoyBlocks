@@ -3,6 +3,7 @@ package Fishrock123.DecoyBlocks;
 import java.util.Date;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -32,5 +33,10 @@ public class DBLogEntry {
 	
 	public Date getTimestamp() {
 		return time;
+	}
+	
+	public String toString() {
+		Location loc = b.getLocation();
+		return p.getName() + " -: (" + loc.getWorld().getName() + ")(X:" + (long)loc.getX() + ")(Y:" + (long)loc.getY() + ")(Z:" + (long)loc.getZ() + ")" + " -: @ " + time.toString();
 	}
 }

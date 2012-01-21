@@ -13,12 +13,7 @@ import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DecoyBlocks extends JavaPlugin {
-	public int Trigger1 = 0;
-	public int Trigger2 = 0;
-	public int Trigger3 = 0;
-	public String Punish1;
-	public String Punish2;
-	public String Punish3;
+	public List<DBPunishment> punishments = new ArrayList<DBPunishment>();
 	public boolean AutoRestore;
 	public boolean AutoSave;
 	public Location jailLoc;
@@ -30,7 +25,7 @@ public class DecoyBlocks extends JavaPlugin {
 	public DBBlockListener bListener;
 	public DBPlayerListener pListener;
 	public DBConfig config;
-	public DBPunishment punishments;
+	public DBProcessor processor;
 
 	public void onEnable() {
 		final long startTime = System.nanoTime();
@@ -44,7 +39,7 @@ public class DecoyBlocks extends JavaPlugin {
         this.initialize();
         
         commands = new DBCommands(this);
-        punishments = new DBPunishment(this);
+        processor = new DBProcessor(this);
         
   		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_BREAK, bListener, Event.Priority.Lowest, this);
   		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, pListener, Event.Priority.High, this);
@@ -53,6 +48,7 @@ public class DecoyBlocks extends JavaPlugin {
   		
 		endTime = System.nanoTime();
 		l.info("DecoyBlocks version " + getDescription().getVersion() + " is enabled! {" + TimeUnit.MILLISECONDS.convert((endTime - startTime), TimeUnit.NANOSECONDS) + " ms}");
+		
 		if (getDescription().getVersion().contains("TEST") 
 				|| getDescription().getVersion().contains("ALPHA")
 				|| getDescription().getVersion().contains("BETA")) {
@@ -68,6 +64,7 @@ public class DecoyBlocks extends JavaPlugin {
 		config.load();
 		database.LoadDecoys();
 		database.LoadLog();
+		
 		if (AutoSave) {
 			database.initAutosave(this);
 		}
