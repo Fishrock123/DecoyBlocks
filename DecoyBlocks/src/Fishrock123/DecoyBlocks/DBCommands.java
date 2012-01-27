@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class DBCommands {
@@ -54,6 +55,7 @@ public class DBCommands {
 				if (args[0].equalsIgnoreCase("restore")
 						&& s.hasPermission("decoyblocks.restore")) {
 					s.sendMessage("DB: Restoring decoys...");
+					int e = 0;
 					for (DBBlock b : database.decoys) {
 						Location loc = b.getLocation();
 						Block rb = loc.getBlock();
@@ -63,10 +65,25 @@ public class DBCommands {
 							if (rb.isEmpty() 
 									|| rb.getTypeId() != b.getTypeId()
 									|| rb.getData() != b.getData()) {
+								e++;
 								s.sendMessage("DB ERROR: Failed to restore a decoy in '" + loc.getWorld() + "'!");
+								if (!(s instanceof ConsoleCommandSender)) {
+									m.l.info("DB ERROR: Failed to restore a decoy in '" + loc.getWorld() + "'!");
+								}
 							}
 						}
 						continue;
+					}
+					if (e > 0) {
+						s.sendMessage("Failed to properly restore " + e + " decoys!");
+						if (!(s instanceof ConsoleCommandSender)) {
+							m.l.info("Failed to properly restore " + e + " decoys!");
+						}
+					} else {
+						s.sendMessage("All decoys were restored!");
+						if (!(s instanceof ConsoleCommandSender)) {
+							m.l.info("All decoys were restored!");
+						}
 					}
 					return true;
 				}

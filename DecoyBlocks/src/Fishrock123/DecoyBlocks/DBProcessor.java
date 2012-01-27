@@ -52,15 +52,17 @@ public class DBProcessor {
 					op.setBanned(true);
 					Bukkit.banIP(ip);
 				}
-				if (t.contains(":") && t.split(":")[0].equalsIgnoreCase("Command")) {
+				if (t.contains("=") && t.split("=")[0].equalsIgnoreCase("Command")) {
 					try {
-						cmd = t.split(":")[1];
+						cmd = t.split("=")[1];
 						
-						if (cmd.contains("{player}")) {
-							cmd.replace("{player}", op.getName());
+						if (cmd.contains("%player%")) {
+							String[] temp = cmd.split("%player%");
+							cmd = temp[0] + op.getName() + temp[1];
 						}
-						if (cmd.contains("{world}")) {
-							cmd.replace("{world}", p.getWorld().getName());
+						if (cmd.contains("%world%")) {
+							String[] temp = cmd.split("%world%");
+							cmd = temp[0] + p.getWorld().getName() + temp[1];
 						}
 						
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);

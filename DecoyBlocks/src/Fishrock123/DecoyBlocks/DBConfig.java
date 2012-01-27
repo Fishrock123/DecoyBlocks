@@ -25,38 +25,38 @@ public class DBConfig {
 		
 		if (!new File(m.getDataFolder(), "config.yml").exists()) {
 			m.l.info("DB: Generating New Config File... ");
-			c.addDefault("Punishments", Arrays.asList("3,Jail", "5,Ban"));
+			c.addDefault("Punishments", Arrays.asList("1,Jail", "3,Ban"));
 			c.addDefault("JailLocation", Arrays.asList("world", 0, 0, 0));
 			c.addDefault("AutoRestore", false);
 			c.addDefault("AutoSave", true);
    	 		c.options().copyDefaults(true);
    		    m.saveConfig();
-		}
-		
-		m.l.info("DB: Adding Header to config.yml... ");
-		StringBuffer contents = new StringBuffer();
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(m.getClass().getResourceAsStream("configheader.txt")));
-			String text = new String();
-			while ((text = reader.readLine()) != null) {
-				contents.append(text).append(System.getProperty("line.separator"));
-			}
-			try {
-				if (reader != null) {
-					reader.close();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-		
-			c.options().header(contents.toString());
-			c.options().copyHeader(true);
-			m.saveConfig();
+   		    
+   		    m.l.info("DB: Adding Header to config.yml... ");
+   		    StringBuffer contents = new StringBuffer();
+   		    try {
+   		    	BufferedReader reader = new BufferedReader(new InputStreamReader(m.getClass().getResourceAsStream("configheader.txt")));
+   		    	String text = new String();
+   		    	while ((text = reader.readLine()) != null) {
+   		    		contents.append(text).append(System.getProperty("line.separator"));
+   		    	}
+   		    	try {
+   		    		if (reader != null) {
+ 						reader.close();
+ 					}
+ 				} catch (IOException e) {
+ 					e.printStackTrace();
+ 				}
+ 			} catch (FileNotFoundException e) {
+ 				e.printStackTrace();
+ 			} catch (IOException e) {
+ 				e.printStackTrace();
+ 			} finally {
+ 		
+ 				c.options().header(contents.toString());
+ 				c.options().copyHeader(true);
+ 				m.saveConfig();
+ 			}
 		}
 	}
 	@SuppressWarnings("unchecked")
