@@ -6,8 +6,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 
 public class DBPlayerListener extends PlayerListener {
-	public static DecoyBlocks m;
-	private static DBDatabase database;
+	private DecoyBlocks m;
+	private DBDatabase database;
 	public DBPlayerListener(DecoyBlocks instance) {
 		m = instance;
 		database = m.database;

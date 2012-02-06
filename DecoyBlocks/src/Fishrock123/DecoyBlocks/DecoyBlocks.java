@@ -27,19 +27,20 @@ public class DecoyBlocks extends JavaPlugin {
 	public DBConfig config;
 	public DBProcessor processor;
 
+	@Override
 	public void onEnable() {
 		final long startTime = System.nanoTime();
         final long endTime;
         
         config = new DBConfig(this);
         database = new DBDatabase(this);
-        bListener = new DBBlockListener(this);
         pListener = new DBPlayerListener(this);
         
         this.initialize();
         
         commands = new DBCommands(this);
         processor = new DBProcessor(this);
+        bListener = new DBBlockListener(this);
         
   		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_BREAK, bListener, Event.Priority.Lowest, this);
   		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, pListener, Event.Priority.High, this);
@@ -70,6 +71,7 @@ public class DecoyBlocks extends JavaPlugin {
 		}
 	}
 	
+	@Override
 	public void onDisable() {  
 		final long startTime = System.nanoTime();
         final long endTime;

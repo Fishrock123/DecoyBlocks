@@ -13,7 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class DBConfig {
-	public static DecoyBlocks m;
+	private DecoyBlocks m;
 	
 	public DBConfig(DecoyBlocks instance) {
 		m = instance;

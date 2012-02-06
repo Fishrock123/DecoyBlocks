@@ -6,13 +6,13 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 public class DBProcessor {
-	public static DecoyBlocks m;
+	private DecoyBlocks m;
 	
 	public DBProcessor(DecoyBlocks instance) {
 		m = instance;
 	}
 	
-	public static void execute(Player p, String wn, int i) {
+	public void execute(Player p, String wn, int i) {
 		
 		for (DBPunishment dbp : m.punishments) {
 			

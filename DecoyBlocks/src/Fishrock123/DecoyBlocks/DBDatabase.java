@@ -21,7 +21,7 @@ import org.bukkit.block.Block;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DBDatabase {
-	public static DecoyBlocks m;
+	private DecoyBlocks m;
 	public List<DBBlock> decoys = new ArrayList<DBBlock>();
 	public List<Location> decoyLocations = new ArrayList<Location>();
 	public List<DBLogEntry> Log = new ArrayList<DBLogEntry>();

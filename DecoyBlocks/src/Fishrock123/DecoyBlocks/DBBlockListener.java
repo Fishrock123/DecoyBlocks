@@ -8,12 +8,14 @@ import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 public class DBBlockListener extends BlockListener {
-	public static DecoyBlocks m;
-	private static DBDatabase database;
+	private DecoyBlocks m;
+	private DBDatabase database;
+	private DBProcessor processor;
 	
 	public DBBlockListener(DecoyBlocks instance) {
 		m = instance;
 		database = m.database;
+		processor = m.processor;
 	}
 	
 	public void onBlockBreak(BlockBreakEvent e) {
@@ -46,8 +48,9 @@ public class DBBlockListener extends BlockListener {
 			}
 			
 			m.l.info("DB Debug: " + m.punishments.get(breakcount) + " + " + e.getBlock().getLocation().getWorld().getName() + " + " + e.getPlayer().getName());
-			DBProcessor.execute(e.getPlayer(), e.getBlock().getLocation().getWorld().getName(), breakcount);
+			processor.execute(e.getPlayer(), e.getBlock().getLocation().getWorld().getName(), breakcount);
 		}
+		e.getBlock().setTypeId(0);
 	}
 	
 	public void onBlockPlace(BlockPlaceEvent e) {
