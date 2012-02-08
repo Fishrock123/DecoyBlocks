@@ -3,11 +3,13 @@ package Fishrock123.DecoyBlocks;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-public class DBBlockListener extends BlockListener {
+public class DBBlockListener implements Listener {
 	private DecoyBlocks m;
 	private DBDatabase database;
 	private DBProcessor processor;
@@ -18,6 +20,7 @@ public class DBBlockListener extends BlockListener {
 		processor = m.processor;
 	}
 	
+	@EventHandler (priority = EventPriority.HIGH)
 	public void onBlockBreak(BlockBreakEvent e) {
 		String name = e.getPlayer().getName();
 		
@@ -53,6 +56,7 @@ public class DBBlockListener extends BlockListener {
 		e.getBlock().setTypeId(0);
 	}
 	
+	@EventHandler (priority = EventPriority.LOW)
 	public void onBlockPlace(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
 		

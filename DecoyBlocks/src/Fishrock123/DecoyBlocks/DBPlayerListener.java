@@ -1,11 +1,13 @@
 package Fishrock123.DecoyBlocks;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerListener;
 
-public class DBPlayerListener extends PlayerListener {
+public class DBPlayerListener implements Listener {
 	private DecoyBlocks m;
 	private DBDatabase database;
 	public DBPlayerListener(DecoyBlocks instance) {
@@ -13,6 +15,7 @@ public class DBPlayerListener extends PlayerListener {
 		database = m.database;
 	}
 	
+	@EventHandler (priority = EventPriority.LOW)
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		

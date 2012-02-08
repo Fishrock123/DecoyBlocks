@@ -19,14 +19,13 @@ public class DBConfig {
 		m = instance;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void generate() {
 		final FileConfiguration c = m.getConfig();
 		
 		if (!new File(m.getDataFolder(), "config.yml").exists()) {
 			m.l.info("DB: Generating New Config File... ");
 			c.addDefault("Punishments", Arrays.asList("1,Jail", "3,Ban"));
-			c.addDefault("JailLocation", Arrays.asList("world", 0, 0, 0));
+			c.addDefault("JailLocation", Arrays.asList("world", "0", "0", "0"));
 			c.addDefault("AutoRestore", false);
 			c.addDefault("AutoSave", true);
    	 		c.options().copyDefaults(true);
@@ -59,7 +58,7 @@ public class DBConfig {
  			}
 		}
 	}
-	@SuppressWarnings("unchecked")
+	
 	public void load() {
 		final FileConfiguration c = m.getConfig();
   		m.l.info("DB: Loading Config File... ");

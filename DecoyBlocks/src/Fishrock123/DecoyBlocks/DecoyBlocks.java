@@ -1,5 +1,6 @@
 package Fishrock123.DecoyBlocks;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +10,6 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DecoyBlocks extends JavaPlugin {
@@ -42,10 +42,8 @@ public class DecoyBlocks extends JavaPlugin {
         processor = new DBProcessor(this);
         bListener = new DBBlockListener(this);
         
-  		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_BREAK, bListener, Event.Priority.Lowest, this);
-  		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, pListener, Event.Priority.High, this);
-  		getServer().getPluginManager().registerEvent(Event.Type.BLOCK_PLACE, bListener, Event.Priority.Lowest, this);
-  		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_MOVE, pListener, Event.Priority.Lowest, this);
+  		getServer().getPluginManager().registerEvents(bListener, this);
+  		getServer().getPluginManager().registerEvents(pListener, this);
   		
 		endTime = System.nanoTime();
 		l.info("DecoyBlocks version " + getDescription().getVersion() + " is enabled! {" + TimeUnit.MILLISECONDS.convert((endTime - startTime), TimeUnit.NANOSECONDS) + " ms}");
@@ -57,6 +55,40 @@ public class DecoyBlocks extends JavaPlugin {
 			l.info("You are running a Testing version of DecoyBlocks!");
 			l.info("This version may contain unwanted bugs, ");
 			l.info(" and new features may not be fully functioning.");
+		}
+		
+		try {
+		    Metrics metrics = new Metrics();
+		    
+		    metrics.addCustomData(this, new Metrics.Plotter() {
+		    	
+		        @Override
+		        public String getColumnName() {
+		            return "Decoys";
+		        }
+
+		        @Override
+		        public int getValue() {
+		        	return database.decoys.size();
+		        }
+		    });
+		    metrics.addCustomData(this, new Metrics.Plotter() {
+		    	
+		        @Override
+		        public String getColumnName() {
+		            return "Log Entries";
+		        }
+
+		        @Override
+		        public int getValue() {
+		        	return database.Log.size();
+		        }
+		    });
+
+		    metrics.beginMeasuringPlugin(this);
+		    
+		} catch (IOException e) {
+		    l.info(e.getMessage());
 		}
 	}
 	
