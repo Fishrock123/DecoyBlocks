@@ -25,8 +25,10 @@ public class DBCommands {
 				if (args[0].equalsIgnoreCase("decoys")
 						&& s.hasPermission("decoyblocks.decoy")) {
 					s.sendMessage("DB: Listing all decoys:");
+					int i = 0;
 					for (DBBlock b : database.decoys) {
-						s.sendMessage(b.toString());
+						i++;
+						s.sendMessage("(" + i + ") " + b.toString());
 						continue;
 					}
 					return true;
@@ -117,6 +119,9 @@ public class DBCommands {
 						database.Log.clear();
 						database.logCounter.clear();
 						s.sendMessage("DB: Cleared the Log.");
+						if (!(s instanceof ConsoleCommandSender)) {
+							m.l.info("DB: Cleared the Log.");
+						}
 						return true;
 					}
 					if (args.length == 2 
@@ -124,7 +129,10 @@ public class DBCommands {
 							&& s.hasPermission("decoyblocks.clear")) {
 						database.decoys.clear();
 						database.decoyLocations.clear();
-						s.sendMessage("DB: Cleared all decoys.");
+						s.sendMessage("DB WARNING: You have cleared all decoys.");
+						if (!(s instanceof ConsoleCommandSender)) {
+							m.l.info("DB WARNING: " + s.getName() + " Cleared all decoys.");
+						}
 						return true;
 					}
 					return true;
@@ -141,6 +149,9 @@ public class DBCommands {
 					database.LoadLog(); 
 					endTime = System.nanoTime();
 					s.sendMessage("DB: Saved Decoys and Log entries. {" + TimeUnit.MILLISECONDS.convert((endTime - startTime), TimeUnit.NANOSECONDS) + " ms}");
+					if (!(s instanceof ConsoleCommandSender)) {
+						m.l.info("DB: Saved Decoys and Log entries. {" + TimeUnit.MILLISECONDS.convert((endTime - startTime), TimeUnit.NANOSECONDS) + " ms}");
+					}
 					return true;
 				}
 				if (args[0].equalsIgnoreCase("reload")
@@ -160,6 +171,9 @@ public class DBCommands {
 					
 					endTime = System.nanoTime();
 					s.sendMessage("DB: Saved Decoys and Log entries; Reloaded Config & Autosave. {" + TimeUnit.MILLISECONDS.convert((endTime - startTime), TimeUnit.NANOSECONDS) + " ms}");
+					if (!(s instanceof ConsoleCommandSender)) {
+						m.l.info("DB: Saved Decoys and Log entries; Reloaded Config & Autosave. {" + TimeUnit.MILLISECONDS.convert((endTime - startTime), TimeUnit.NANOSECONDS) + " ms}");
+					}
 					return true;
 				}
 				return true;

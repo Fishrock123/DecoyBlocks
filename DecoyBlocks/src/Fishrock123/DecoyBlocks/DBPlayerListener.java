@@ -25,10 +25,10 @@ public class DBPlayerListener implements Listener {
 			if (p.getItemInHand().getTypeId() == 280) {
 				if (database.decoyLocations.contains(e.getClickedBlock().getLocation())) {
 					database.remove(e.getClickedBlock());
-					p.sendMessage("Removed " + e.getClickedBlock().toString() + " from the decoyList.");
+					p.sendMessage("Removed " + new DBBlock(e.getClickedBlock()).toString() + " from the decoyList.");
 				} else {
 					database.add(e.getClickedBlock());
-					p.sendMessage("Added " + e.getClickedBlock().toString() + " to the decoyList.");
+					p.sendMessage("Added " + new DBBlock(e.getClickedBlock()).toString() + " to the decoyList.");
 				}
 			}
 		}

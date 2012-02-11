@@ -60,25 +60,14 @@ public class DecoyBlocks extends JavaPlugin {
 		try {
 		    Metrics metrics = new Metrics();
 		    
-		    metrics.addCustomData(this, new Metrics.Plotter() {
-		    	
-		        @Override
-		        public String getColumnName() {
-		            return "Decoys";
-		        }
-
+		    metrics.addCustomData(this, new Metrics.Plotter("Decoys") {
 		        @Override
 		        public int getValue() {
 		        	return database.decoys.size();
 		        }
 		    });
-		    metrics.addCustomData(this, new Metrics.Plotter() {
-		    	
-		        @Override
-		        public String getColumnName() {
-		            return "Log Entries";
-		        }
-
+		    
+		    metrics.addCustomData(this, new Metrics.Plotter("Log Entries") {
 		        @Override
 		        public int getValue() {
 		        	return database.Log.size();
