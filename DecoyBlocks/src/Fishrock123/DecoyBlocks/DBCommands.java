@@ -61,6 +61,7 @@ public class DBCommands {
 						&& s.hasPermission("decoyblocks.restore")) {
 					s.sendMessage("DB: Restoring decoys...");
 					int e = 0;
+					int r = 0;
 					for (DBBlock b : database.decoys) {
 						Location loc = b.getLocation();
 						Block rb = loc.getBlock();
@@ -71,10 +72,12 @@ public class DBCommands {
 									|| rb.getTypeId() != b.getTypeId()
 									|| rb.getData() != b.getData()) {
 								e++;
-								s.sendMessage("DB ERROR: Failed to restore a decoy in '" + loc.getWorld() + "'!");
+								s.sendMessage("DB ERROR: Failed to restore a decoy in '" + loc.getWorld().getName() + "'!");
 								if (!(s instanceof ConsoleCommandSender)) {
-									m.l.info("DB ERROR: Failed to restore a decoy in '" + loc.getWorld() + "'!");
+									m.l.info("DB ERROR: Failed to restore a decoy in '" + loc.getWorld().getName() + "'!");
 								}
+							} else {
+								r++;
 							}
 						}
 						continue;
@@ -84,6 +87,8 @@ public class DBCommands {
 						if (!(s instanceof ConsoleCommandSender)) {
 							m.l.info("DB: Failed to properly restore " + e + " decoys!");
 						}
+					} else if (r == 0) {
+						s.sendMessage("DB: No Decoys to restore.");
 					} else {
 						s.sendMessage("DB: All decoys were restored!");
 						if (!(s instanceof ConsoleCommandSender)) {

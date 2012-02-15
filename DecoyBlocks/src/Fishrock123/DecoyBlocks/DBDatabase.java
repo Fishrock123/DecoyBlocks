@@ -37,7 +37,13 @@ public class DBDatabase {
 	}
 	
 	public void remove(Block b) {
-		decoys.remove(new DBBlock(b));
+		List<DBBlock> removeList = new ArrayList<DBBlock>();
+		for (DBBlock d : decoys) {
+			if (d.getLocation().equals(b.getLocation())) {
+				removeList.add(d);
+			}
+		}
+		decoys.removeAll(removeList);
 		decoyLocations.remove(b.getLocation());
 	}
 	

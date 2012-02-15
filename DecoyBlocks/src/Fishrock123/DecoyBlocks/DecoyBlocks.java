@@ -19,7 +19,7 @@ public class DecoyBlocks extends JavaPlugin {
 	public Location jailLoc;
 	public List<Player> logset = new ArrayList<Player>();
 	
-	public final Logger l = Logger.getLogger("Minecraft");
+	public Logger l;
 	public DBDatabase database;
 	public DBCommands commands;
 	public DBBlockListener bListener;
@@ -31,6 +31,8 @@ public class DecoyBlocks extends JavaPlugin {
 	public void onEnable() {
 		final long startTime = System.nanoTime();
         final long endTime;
+        
+        l = getLogger();
         
         config = new DBConfig(this);
         database = new DBDatabase(this);
@@ -105,6 +107,7 @@ public class DecoyBlocks extends JavaPlugin {
 		l.info("DecoyBlocks Disabled! {" + TimeUnit.MILLISECONDS.convert((endTime - startTime), TimeUnit.NANOSECONDS) + " ms}");
 	}
 	
+	@Override
 	public boolean onCommand(CommandSender s, Command cmd, String cLabel, String[] args) {
 		boolean bol = commands.commandProcess(s, cmd, cLabel, args);
 		return bol;
