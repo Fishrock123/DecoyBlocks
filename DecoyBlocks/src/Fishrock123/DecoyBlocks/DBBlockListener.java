@@ -58,8 +58,8 @@ public class DBBlockListener implements Listener {
 			
 			m.l.info("DB Debug: " + m.punishments.get(breakcount) + " + " + e.getBlock().getLocation().getWorld().getName() + " + " + e.getPlayer().getName());
 			processor.execute(e.getPlayer(), e.getBlock().getLocation().getWorld().getName(), breakcount);
+			e.getBlock().setTypeId(0);
 		}
-		e.getBlock().setTypeId(0);
 	}
 	
 	@EventHandler (priority = EventPriority.LOW)
