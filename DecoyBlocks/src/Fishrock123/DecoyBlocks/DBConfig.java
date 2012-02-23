@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -24,10 +23,6 @@ public class DBConfig {
 		
 		if (!new File(m.getDataFolder(), "config.yml").exists()) {
 			m.l.info("DB: Generating New Config File... ");
-			c.addDefault("Punishments", Arrays.asList("1,Jail", "3,Ban"));
-			c.addDefault("JailLocation", Arrays.asList("world", "0", "0", "0"));
-			c.addDefault("AutoRestore", false);
-			c.addDefault("AutoSave", true);
    	 		c.options().copyDefaults(true);
    		    m.saveConfig();
    		    
@@ -78,6 +73,7 @@ public class DBConfig {
   		}
   		
   		m.AutoRestore = c.getBoolean("AutoRestore", false);
+  		m.AutoRestoreTime = c.getLong("AutoRestoreTime", 20);
   		m.AutoSave = c.getBoolean("AutoSave", true);
 	}
 }

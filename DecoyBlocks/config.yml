@@ -1,0 +1,11 @@
+Punishments:
+- 1,Jail
+- 3,Ban
+JailLocation:
+- world
+- 0.0
+- 128
+- 0.0
+AutoRestore: true
+AutoRestoreTime: 20
+AutoSave: true

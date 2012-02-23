@@ -23,7 +23,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class DBDatabase {
 	private DecoyBlocks m;
 	public List<DBBlock> decoys = new ArrayList<DBBlock>();
-	public List<Location> decoyLocations = new ArrayList<Location>();
+	public Map<Location, DBBlock> decoyLocations = new HashMap<Location, DBBlock>();
 	public List<DBLogEntry> Log = new ArrayList<DBLogEntry>();
 	public Map<String, Byte> logCounter = new HashMap<String, Byte>();
 	
@@ -32,8 +32,9 @@ public class DBDatabase {
 	}
 	
 	public void add(Block b) {
-		decoys.add(new DBBlock(b));
-		decoyLocations.add(b.getLocation());
+		DBBlock dbb = new DBBlock(b);
+		decoys.add(dbb);
+		decoyLocations.put(b.getLocation(), dbb);
 	}
 	
 	public void remove(Block b) {
@@ -129,7 +130,13 @@ public class DBDatabase {
                     		tid = (short)bid;
                     	}
                 		byte data = iostream.readByte();
-                		decoys.add(new DBBlock(new Location(w, x, y, z), tid, data));
+                		
+                		Location loc = new Location(w, x, y, z);
+                		DBBlock b = new DBBlock(loc, tid, data);
+                		if (!decoyLocations.containsKey(loc)) {
+                			decoys.add(b);
+                			decoyLocations.put(loc, b);
+                		}
                 	}
                 }
                 
@@ -150,7 +157,7 @@ public class DBDatabase {
                     e.printStackTrace();
                 }
                 for (DBBlock b : decoys) {
-                	decoyLocations.add(b.getLocation());
+                	decoyLocations.put(b.getLocation(), b);
                 }
             }
         }

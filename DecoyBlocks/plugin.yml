@@ -1,10 +1,44 @@
 name: DecoyBlocks
 main: Fishrock123.DecoyBlocks.DecoyBlocks
-version: 0.5.3 ALPHA (1D9)
+version: 0.6 ALPHA (1E3)
+author: Fishrock123
 dev-url: http://dev.bukkit.org/server-mods/decoyblocks/
-description: >
-    DecoyBlocks:
 commands:
     db:
         description:
         usage:
+        permission: decoyblocks
+permissions:
+  decoyblocks.*:
+    description: Gives access to all DecoyBlocks commands
+    children:
+      decoyblocks.decoys: true
+      decoyblocks.log: true
+      decoyblocks.restore: true
+      decoyblocks.clear: true
+      decoyblocks.reload: true
+  decoyblocks.decoys:
+    description: Allows you to place and remove decoys.
+    default: op
+  decoyblocks.log:
+    description: Allows you to see the log.
+    default: op
+  decoyblocks.restore:
+    description: Allows you to restore the decoys.
+    default: op
+  decoyblocks.clear.log:
+    description: Allows you to clear the log.
+    default: op
+  decoyblocks.clear:
+    description: (DANGEROUS) Allows you to remove all decoys at once.
+    default: op
+    children:
+      decoyblocks.clear.log: true
+  decoyblocks.save:
+    description: Allows you to save the decoys.
+    default: op
+  decoyblocks.reload:
+    description: Allows you to reload DecoyBlocks.
+    default: op
+    children:
+      decoyblocks.save: true

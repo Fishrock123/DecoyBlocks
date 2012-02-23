@@ -23,7 +23,7 @@ public class DBPlayerListener implements Listener {
 				&& p.hasPermission("decoyblocks.decoy")
 				&& e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			if (p.getItemInHand().getTypeId() == 280) {
-				if (database.decoyLocations.contains(e.getClickedBlock().getLocation())) {
+				if (database.decoyLocations.containsKey(e.getClickedBlock().getLocation())) {
 					database.remove(e.getClickedBlock());
 					p.sendMessage("Removed " + new DBBlock(e.getClickedBlock()).toString() + " from the decoyList.");
 				} else {

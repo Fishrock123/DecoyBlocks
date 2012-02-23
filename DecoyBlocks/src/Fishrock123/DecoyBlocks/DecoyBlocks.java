@@ -15,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class DecoyBlocks extends JavaPlugin {
 	public List<DBPunishment> punishments = new ArrayList<DBPunishment>();
 	public boolean AutoRestore;
+	public long AutoRestoreTime;
 	public boolean AutoSave;
 	public Location jailLoc;
 	public List<Player> logset = new ArrayList<Player>();

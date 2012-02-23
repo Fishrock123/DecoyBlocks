@@ -1,43 +1,46 @@
- ###############################################################
- 
-  DecoyBlocks v0.4.1 Configuration
+  ###############################################################
   
-      Developer: Fishrock123
-           Report bugs and feature requests to: http://dev.bukkit.org/server-mods/decoyblocks/tickets/
-      Support:
-           @Fishrock123 on Twitter
-           Fishrock123 on www.bukkit.org or dev.bukkit.org/
+   DecoyBlocks v0.6 Configuration
+   
+       Developer: Fishrock123
+            Report bugs and feature requests to: http://dev.bukkit.org/server-mods/decoyblocks/tickets/
+       Support:
+            @Fishrock123 on Twitter
+            Fishrock123 on www.bukkit.org or dev.bukkit.org/
+   
+   ##############################################################
+   
+   Set the decoy break thresholds and punishments
+   Punishments:
+   - 1,Jail
+   - 1,Command=say EXAMPLE undo all %player% %world%
+   - 3,Ban
   
-  ##############################################################
+   Punishments consist of:
+   Kill - Instantly deals the offender 9001 damage.
+   Jail - Teleports the offender to the specified location. (Set via coordinates in config.)
+   Kick - Instantly kicks the offender from the server.
+   Ban - Instantly bans the offender from the server.
+   IPBan - Instantly bans the offender and associated IP-Address.
+   Command - Executes the command that follows the colon (- <#>,Command=<command>)
+           The command is executed from the console, so make sure it does not start with a slash (/).
+           Inserting %player% in the command will get the player who broke the decoy.
+           Inserting %world% in the command will get the world in which the decoy was broken.
+   
+   Set the jail's coordinates. (Use F3 on top of the block to get them. Not more than one decimal is necessary.)
+   JailLocation:
+   - <worldname>
+   - 0.0 (X)
+   - 128.0 (Y) (If Y is set to 0, you will teleport underneath the map.)
+   - 0.0 (Z)
   
-  Set the decoy break thresholds and punishments
-  Punishments:
-  - 1,Jail
-  - 1,Command=say EXAMPLE undo all %player% %world%
-  - 3,Ban
- 
-  Punishments consist of:
-  Kill - Instantly deals the offender 9001 damage.
-  Jail - Teleports the offender to the specified location. (Set via coordinates in config.)
-  Kick - Instantly kicks the offender from the server.
-  Ban - Instantly bans the offender from the server.
-  IPBan - Instantly bans the offender and associated IP-Address.
-  Command - Executes the command that follows the equals sign (- <#>,Command=<command>)
-          The command is executed from the console, so make sure it does not start with a slash (/).
-          Inserting %player% in the command will get the player who broke the decoy.
-          Inserting %world% in the command will get the world in which the decoy was broken.
-  
-  Set the jail's coordinates. (Use F3 on top of the block to get them. Not more than one decimal is necessary.)
-  JailLocation:
-  - <worldname>
-  - 0.0 (X)
-  - 0.0 (Y)
-  - 0.0 (Z)
- 
-  Unused as of now. Possibly a future feature. How it will work is unknown.
-  AutoRestore: <true / false>
-  
-  Set if the decoys and log will automatically save every 5 minutes.
-  AutoSave: <true / false>
-  
- ###############################################################
+   Set if the decoys should automaticlly revert after a certain period of time.
+   AutoRestore: <true / false>
+
+   Set the delay before the decoys are automatically restored.
+   AutoRestoreTime: <Delay in seconds, non-decimal>
+   
+   Set if the decoys and log will automatically save every 5 minutes.
+   AutoSave: <true / false>
+   
+   ################################################################

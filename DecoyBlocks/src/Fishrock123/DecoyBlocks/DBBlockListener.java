@@ -20,9 +20,9 @@ public class DBBlockListener implements Listener {
 		processor = m.processor;
 	}
 	
-	@EventHandler (priority = EventPriority.HIGH)
+	@EventHandler (priority = EventPriority.LOWEST)
 	public void onBlockBreak(BlockBreakEvent e) {
-		if (database.decoyLocations.contains(e.getBlock().getLocation()) && e.getPlayer().hasPermission("decoyblocks.decoy")) {
+		if (database.decoyLocations.containsKey(e.getBlock().getLocation()) && e.getPlayer().hasPermission("decoyblocks.decoy")) {
 			database.remove(e.getBlock());
 			e.getPlayer().sendMessage("Removed " + new DBBlock(e.getBlock()).toString() + " from the decoyList.");
 			return;
@@ -30,7 +30,7 @@ public class DBBlockListener implements Listener {
 		
 		String name = e.getPlayer().getName();
 		
-		if (database.decoyLocations.contains(e.getBlock().getLocation())) {
+		if (database.decoyLocations.containsKey(e.getBlock().getLocation())) {
 			DBLogEntry entry = new DBLogEntry(e.getPlayer(), e.getBlock());
 			database.Log.add(entry);
 			Byte breakcount = 0;
@@ -55,14 +55,15 @@ public class DBBlockListener implements Listener {
 					}
 				}
 			}
-			
-			m.l.info("DB Debug: " + m.punishments.get(breakcount) + " + " + e.getBlock().getLocation().getWorld().getName() + " + " + e.getPlayer().getName());
 			processor.execute(e.getPlayer(), e.getBlock().getLocation().getWorld().getName(), breakcount);
 			e.getBlock().setTypeId(0);
+			if (m.AutoRestore == true) {
+				database.decoyLocations.get(e.getBlock().getLocation()).autoRestore(m, m.AutoRestoreTime);
+			}
 		}
 	}
 	
-	@EventHandler (priority = EventPriority.LOW)
+	@EventHandler (priority = EventPriority.HIGHEST)
 	public void onBlockPlace(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
 		
