@@ -37,7 +37,7 @@ public class DBBlockListener implements Listener {
 			
             if (database.logCounter.containsKey(entry.getOfflinePlayer().getName())) {
             	breakcount = database.logCounter.get(entry.getOfflinePlayer().getName());
-            	database.logCounter.remove(entry.getOfflinePlayer().getName());
+            	
             	breakcount++;
             } else {
             	breakcount = 1;
