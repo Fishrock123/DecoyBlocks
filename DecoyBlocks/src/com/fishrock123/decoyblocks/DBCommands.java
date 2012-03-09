@@ -1,4 +1,4 @@
-package Fishrock123.DecoyBlocks;
+package com.fishrock123.decoyblocks;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +28,7 @@ public class DBCommands {
 					int i = 0;
 					for (DBBlock b : database.decoys) {
 						i++;
-						s.sendMessage("(" + i + ") " + b.toString());
+						s.sendMessage('(' + i + ") " + b.toString());
 						continue;
 					}
 					return true;
@@ -41,7 +41,7 @@ public class DBCommands {
 						int i = 0;
 						for (DBLogEntry entry : database.Log) {
 							i++;
-							s.sendMessage("(" + i + ") " + entry.toString());
+							s.sendMessage('(' + i + ") " + entry.toString());
 							continue;
 						}
 					}
@@ -72,9 +72,9 @@ public class DBCommands {
 									|| rb.getTypeId() != b.getTypeId()
 									|| rb.getData() != b.getData()) {
 								e++;
-								s.sendMessage("DB ERROR: Failed to restore a decoy in '" + loc.getWorld().getName() + "'!");
+								s.sendMessage("DB ERROR: Failed to restore a decoy in `" + loc.getWorld().getName() + "`!");
 								if (!(s instanceof ConsoleCommandSender)) {
-									m.l.info("DB ERROR: Failed to restore a decoy in '" + loc.getWorld().getName() + "'!");
+									m.l.info("DB ERROR: Failed to restore a decoy in `" + loc.getWorld().getName() + "`!");
 								}
 							} else {
 								r++;
@@ -97,6 +97,7 @@ public class DBCommands {
 					}
 					return true;
 				}
+				// TODO: Teleports real soon.
 				/*if (args[0].equalsIgnoreCase("teleport")
 						&& s instanceof Player
 						&& s.hasPermission("decoyblocks.tp")) {

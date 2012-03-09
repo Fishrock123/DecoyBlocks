@@ -1,4 +1,4 @@
-package Fishrock123.DecoyBlocks;
+package com.fishrock123.decoyblocks;
 
 import java.io.BufferedReader;
 import java.io.File;

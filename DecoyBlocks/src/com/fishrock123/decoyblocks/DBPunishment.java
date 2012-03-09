@@ -1,4 +1,4 @@
-package Fishrock123.DecoyBlocks;
+package com.fishrock123.decoyblocks;
 
 public class DBPunishment {
 	private byte b;

@@ -1,4 +1,4 @@
-package Fishrock123.DecoyBlocks;
+package com.fishrock123.decoyblocks;
 
 import java.util.Date;
 
@@ -37,6 +37,6 @@ public class DBLogEntry {
 	
 	public String toString() {
 		Location loc = b.getLocation();
-		return p.getName() + " -: (" + loc.getWorld().getName() + ")(X:" + (long)loc.getX() + ")(Y:" + (long)loc.getY() + ")(Z:" + (long)loc.getZ() + ")" + " -: @ " + time.toString();
+		return p.getName() + " -: (" + loc.getWorld().getName() + ")(X:" + (long)loc.getX() + ")(Y:" + (long)loc.getY() + ")(Z:" + (long)loc.getZ() + ") -: @ " + time.toString();
 	}
 }

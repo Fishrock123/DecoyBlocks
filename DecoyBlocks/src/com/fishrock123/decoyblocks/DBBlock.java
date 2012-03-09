@@ -1,4 +1,4 @@
-package Fishrock123.DecoyBlocks;
+package com.fishrock123.decoyblocks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -38,7 +38,7 @@ public class DBBlock {
 	}
 	
 	public String toString() {
-		return Material.getMaterial(id) + ":(" + data + ") -: (" + loc.getWorld().getName() + ")(X:" + (long)loc.getX() + ")(Y:" + (long)loc.getY() + ")(Z:" + (long)loc.getZ() + ")";
+		return Material.getMaterial(id) + ":(" + data + ") -: (`" + loc.getWorld().getName() + "`)(X:" + (long)loc.getX() + ")(Y:" + (long)loc.getY() + ")(Z:" + (long)loc.getZ() + ')';
 	}
 	
 	public void autoRestore(final Plugin plugin, long seconds) {
@@ -48,7 +48,7 @@ public class DBBlock {
 				if (rb.getTypeId() != id || rb.getData() != data) {
 					rb.setTypeIdAndData(id, data, true);
 					if (rb.isEmpty() || rb.getTypeId() != id || rb.getData() != data) {
-						plugin.getLogger().info("DB ERROR: Failed to restore a decoy in '" + loc.getWorld().getName() + "'!");
+						plugin.getLogger().info("DB ERROR: Failed to restore a decoy in `" + loc.getWorld().getName() + "`!");
 					}
 				}
         	}

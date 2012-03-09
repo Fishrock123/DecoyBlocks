@@ -1,4 +1,4 @@
-package Fishrock123.DecoyBlocks;
+package com.fishrock123.decoyblocks;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

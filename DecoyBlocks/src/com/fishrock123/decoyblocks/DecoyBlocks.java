@@ -1,4 +1,4 @@
-package Fishrock123.DecoyBlocks;
+package com.fishrock123.decoyblocks;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +11,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.fishrock123.decoyblocks.utils.Metrics;
 
 public class DecoyBlocks extends JavaPlugin {
 	public List<DBPunishment> punishments = new ArrayList<DBPunishment>();
@@ -61,23 +63,23 @@ public class DecoyBlocks extends JavaPlugin {
 		}
 		
 		try {
-		    Metrics metrics = new Metrics();
+		    Metrics metrics = new Metrics(this);
 		    
-		    metrics.addCustomData(this, new Metrics.Plotter("Decoys") {
+		    metrics.addCustomData(new Metrics.Plotter("Decoys") {
 		        @Override
 		        public int getValue() {
 		        	return database.decoys.size();
 		        }
 		    });
 		    
-		    metrics.addCustomData(this, new Metrics.Plotter("Log Entries") {
+		    metrics.addCustomData(new Metrics.Plotter("Log Entries") {
 		        @Override
 		        public int getValue() {
 		        	return database.Log.size();
 		        }
 		    });
 
-		    metrics.beginMeasuringPlugin(this);
+		    metrics.start();
 		    
 		} catch (IOException e) {
 		    l.info(e.getMessage());

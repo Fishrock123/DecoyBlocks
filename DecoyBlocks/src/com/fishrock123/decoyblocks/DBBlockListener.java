@@ -1,4 +1,4 @@
-package Fishrock123.DecoyBlocks;
+package com.fishrock123.decoyblocks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -74,7 +74,7 @@ public class DBBlockListener implements Listener {
 			for (DBLogEntry entry : database.Log) {
 				if (entry.getBlock().getLocation().equals(e.getBlock().getLocation())) {
 					i++;
-					p.sendMessage("(" + i + ") This decoy has logged " + entry.getOfflinePlayer().getName() + " at " + entry.getTimestamp());
+					p.sendMessage('(' + i + ") This decoy has logged " + entry.getOfflinePlayer().getName() + " at " + entry.getTimestamp());
 				}
 			}
 			
