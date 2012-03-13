@@ -15,13 +15,11 @@ public class DBPlayerListener implements Listener {
 		database = m.database;
 	}
 	
-	@EventHandler (priority = EventPriority.LOW)
+	@EventHandler (priority = EventPriority.LOW, ignoreCancelled = true)
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		
-		if (!e.isCancelled()
-				&& p.hasPermission("decoyblocks.decoy")
-				&& e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+		if (p.hasPermission("decoyblocks.decoy") && e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			if (p.getItemInHand().getTypeId() == 280) {
 				if (database.decoyLocations.containsKey(e.getClickedBlock().getLocation())) {
 					database.remove(e.getClickedBlock());

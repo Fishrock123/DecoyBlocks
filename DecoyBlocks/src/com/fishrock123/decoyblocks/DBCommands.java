@@ -167,6 +167,7 @@ public class DBCommands {
 					
 					s.sendMessage("DB: Saving...");
 					database.deinitAutosave(m);
+					m.punishments.clear();
 					
 					database.SaveDecoys();
 					database.SaveLog();

@@ -58,11 +58,11 @@ public class DBProcessor {
 						
 						if (cmd.contains("%player%")) {
 							String[] temp = cmd.split("%player%");
-							cmd = temp[0] + op.getName() + temp[1];
+							cmd = temp[0] + op.getName() + (temp.length > 1 ? temp[1] : "");
 						}
 						if (cmd.contains("%world%")) {
 							String[] temp = cmd.split("%world%");
-							cmd = temp[0] + p.getWorld().getName() + temp[1];
+							cmd = temp[0] + p.getWorld().getName() + (temp.length > 1 ? temp[1] : "");
 						}
 						
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);

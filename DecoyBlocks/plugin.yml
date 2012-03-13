@@ -1,6 +1,6 @@
 name: DecoyBlocks
 main: com.fishrock123.decoyblocks.DecoyBlocks
-version: 0.6.2 ALPHA (1E5)
+version: 0.6.3 ALPHA (1E8)
 author: Fishrock123
 dev-url: http://dev.bukkit.org/server-mods/decoyblocks/
 commands:
