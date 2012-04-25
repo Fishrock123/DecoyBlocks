@@ -22,7 +22,7 @@ public class DBBlockListener implements Listener {
 	
 	@EventHandler (priority = EventPriority.LOWEST)
 	public void onBlockBreak(BlockBreakEvent e) {
-		if (database.decoyLocations.containsKey(e.getBlock().getLocation()) && e.getPlayer().hasPermission("decoyblocks.decoy")) {
+		if (database.decoyLocations.containsKey(e.getBlock().getLocation()) && e.getPlayer().hasPermission("decoyblocks.decoy") && !database.testList.contains(e.getPlayer())) {
 			database.remove(e.getBlock());
 			e.getPlayer().sendMessage("Removed " + new DBBlock(e.getBlock()).toString() + " from the decoyList.");
 			return;

@@ -53,9 +53,7 @@ public class DecoyBlocks extends JavaPlugin {
 		endTime = System.nanoTime();
 		l.info("DecoyBlocks version " + getDescription().getVersion() + " is enabled! {" + TimeUnit.MILLISECONDS.convert((endTime - startTime), TimeUnit.NANOSECONDS) + " ms}");
 		
-		if (getDescription().getVersion().contains("TEST") 
-				|| getDescription().getVersion().contains("ALPHA")
-				|| getDescription().getVersion().contains("BETA")) {
+		if (getDescription().getVersion().contains("TEST")) {
 			l.info("DB Disclaimer: ");
 			l.info("You are running a Testing version of DecoyBlocks!");
 			l.info("This version may contain unwanted bugs, ");
@@ -67,14 +65,14 @@ public class DecoyBlocks extends JavaPlugin {
 		    
 		    metrics.addCustomData(new Metrics.Plotter("Decoys") {
 		        @Override
-		        public int getValue() {
+		        public synchronized int getValue() {
 		        	return database.decoys.size();
 		        }
 		    });
 		    
 		    metrics.addCustomData(new Metrics.Plotter("Log Entries") {
 		        @Override
-		        public int getValue() {
+		        public synchronized int getValue() {
 		        	return database.Log.size();
 		        }
 		    });
@@ -112,7 +110,6 @@ public class DecoyBlocks extends JavaPlugin {
 	
 	@Override
 	public boolean onCommand(CommandSender s, Command cmd, String cLabel, String[] args) {
-		boolean bol = commands.commandProcess(s, cmd, cLabel, args);
-		return bol;
+		return commands.commandProcess(s, cmd, cLabel, args);
 	}
 }

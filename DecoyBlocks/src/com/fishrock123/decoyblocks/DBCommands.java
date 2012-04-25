@@ -1,7 +1,11 @@
 package com.fishrock123.decoyblocks;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -97,26 +101,57 @@ public class DBCommands {
 					}
 					return true;
 				}
-				// TODO: Teleports real soon.
-				/*if (args[0].equalsIgnoreCase("teleport")
+				if (args[0].equalsIgnoreCase("teleport")
 						&& s instanceof Player
-						&& s.hasPermission("decoyblocks.tp")) {
+						&& s.hasPermission("decoyblocks.teleport")) {
+					Location loc = null;
 					if (args.length == 2) {
 						for (DBLogEntry entry : database.Log) {
 							if (entry.getOfflinePlayer().getName().equalsIgnoreCase(args[1])) {
-								try {
-									Bukkit.getPlayer(s.getName()).teleport(entry.getBlock().getLocation());
-								} catch (Exception e) {
-									m.l.info("Error, unable to teleport to broken block.");
-								}
+								loc = entry.getBlock().getLocation();
 								break;
 							}
+							continue;
+						}
+					} else {
+						loc = database.Log.getLast().getBlock().getLocation();
+					}
+					
+					try {
+						Bukkit.getPlayer(s.getName()).teleport(EmptyBlockFinder.getNearestEmptySpace(loc, 5));
+						return true;
+					} catch (Exception e) {
+						s.sendMessage(ChatColor.RED + "Error, unable to teleport to broken block.");
+						m.l.info("Error, unable to teleport to broken block.");
+						e.printStackTrace();
+					}
+					return true;
+				}
+				if ((args[0].equalsIgnoreCase("search") || args[0].equalsIgnoreCase("lookup"))
+						&& s.hasPermission("decoyblocks.search")) {
+					if (args.length == 2) {
+						Player searchPlayer = null;
+						try {
+							searchPlayer = Bukkit.getPlayerExact(args[1]);
+						} catch (Exception e) {
+							return true;
+						}
+						List<DBLogEntry> lookupList = new ArrayList<DBLogEntry>();
+						for (DBLogEntry entry : database.Log) {
+							if (entry.getOfflinePlayer().getName().equals(searchPlayer.getName())) {
+								lookupList.add(entry);
+							}
+						}
+						int i = 0;
+						for (DBLogEntry en : lookupList) {
+							i++;
+							s.sendMessage('(' + i + ") " + en.getBlock().toString() + "-: @ " + en.getTimestamp().toString());
 							continue;
 						}
 						return true;
 					}
 					return true;
-				}*/
+				}
 				if (args[0].equalsIgnoreCase("clear")) {
 					if (args.length == 2 
 							&& args[1].equalsIgnoreCase("log")
@@ -180,6 +215,24 @@ public class DBCommands {
 					s.sendMessage("DB: Saved Decoys and Log entries; Reloaded Config & Autosave. {" + TimeUnit.MILLISECONDS.convert((endTime - startTime), TimeUnit.NANOSECONDS) + " ms}");
 					if (!(s instanceof ConsoleCommandSender)) {
 						m.l.info("DB: Saved Decoys and Log entries; Reloaded Config & Autosave. {" + TimeUnit.MILLISECONDS.convert((endTime - startTime), TimeUnit.NANOSECONDS) + " ms}");
+					}
+					return true;
+				}
+				if (args.length == 2 
+						&& args[1].equalsIgnoreCase("testing") 
+						&& s instanceof Player 
+						&& s.hasPermission("decoyblocks.test")) {
+					if (args[0].equalsIgnoreCase("enable")) {
+						database.testList.add((Player)s);
+						s.sendMessage("The testing function of DecoyBlocks is now enabled for `" + s.getName() + '`');
+						m.l.info("The testing function of DecoyBlocks is now enabled for `" + s.getName() + '`');
+						return true;
+					}
+					if (args[0].equalsIgnoreCase("disable")) {
+						database.testList.remove((Player)s);
+						s.sendMessage("The testing function of DecoyBlocks is now disabled for `" + s.getName() + '`');
+						m.l.info("The testing function of DecoyBlocks is now disabled for `" + s.getName() + '`');
+						return true;
 					}
 					return true;
 				}

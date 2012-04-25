@@ -1,6 +1,6 @@
 name: DecoyBlocks
 main: com.fishrock123.decoyblocks.DecoyBlocks
-version: 0.6.3 ALPHA (1E8)
+version: 0.7 BETA (1G0)
 author: Fishrock123
 dev-url: http://dev.bukkit.org/server-mods/decoyblocks/
 commands:
@@ -15,6 +15,9 @@ permissions:
       decoyblocks.restore: true
       decoyblocks.clear: true
       decoyblocks.reload: true
+      decoyblocks.teleport: true
+      decoyblocks.search: true
+      decoyblocks.test: true
   decoyblocks.decoys:
     description: Allows you to place and remove decoys.
     default: op
@@ -40,3 +43,12 @@ permissions:
     default: op
     children:
       decoyblocks.save: true
+  decoyblocks.teleport:
+    description: Allows you to teleport to the nearest broken block for the specified player.
+    default: op
+  decoyblocks.search:
+    description: Allows you to search for decoys broken per-player.
+    default: op
+  decoyblocks.test:
+    description: Allows you to properly test DecoyBlocks' functions.
+    default: op

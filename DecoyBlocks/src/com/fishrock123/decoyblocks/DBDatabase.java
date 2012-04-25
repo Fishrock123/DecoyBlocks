@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,14 +19,16 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DBDatabase {
 	private DecoyBlocks m;
-	public List<DBBlock> decoys = new ArrayList<DBBlock>();
+	public LinkedList<DBBlock> decoys = new LinkedList<DBBlock>();
 	public Map<Location, DBBlock> decoyLocations = new HashMap<Location, DBBlock>();
-	public List<DBLogEntry> Log = new ArrayList<DBLogEntry>();
+	public LinkedList<DBLogEntry> Log = new LinkedList<DBLogEntry>();
 	public Map<String, Byte> logCounter = new HashMap<String, Byte>();
+	public List<Player> testList = new ArrayList<Player>();
 	
 	public DBDatabase(DecoyBlocks instance) {
 		m = instance;
